@@ -30,6 +30,8 @@ typedef struct Face {
 }Face;
 
 DCEL *makeDCEL(); //Creates an empty DCEL, it contains no vertices or edges, but contains a single outer(unbounded) face.
+getNumberOfFaces(DCEL *d); //Returns the number of faces in the DCEL.
+
  
 int main( ) {
     
@@ -42,4 +44,8 @@ DCEL *makeDCEL(){
     dcel->faceArray = malloc(sizeof(Face));
     dcel->faceArray[0] = *outerFace;
     return dcel;
+}
+
+int getNumberOfFaces(DCEL *d){
+    return sizeof(d->faceArray) / sizeof(Face);
 }
