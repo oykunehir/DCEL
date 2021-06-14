@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
  
 typedef struct DCEL {
     struct HalfEdge *edgeArray;
     struct Vertex   *vertexArray;
     struct Face     *faceArray;
-} DCEL;
+}DCEL;
 
 typedef struct Vertex {
     double *xCoordinate;
@@ -27,8 +28,18 @@ typedef struct Face {
     HalfEdge *incidentEdge; //pointer to any one half-edge for which f is the incident face
     //Any attributes can be added here
 }Face;
+
+DCEL *makeDCEL(); //Creates an empty DCEL, it contains no vertices or edges, but contains a single outer(unbounded) face.
  
 int main( ) {
     
    return 0;
+}
+
+
+DCEL *makeDCEL(){
+    Face *outerFace; DCEL *dcel;
+    dcel->faceArray = malloc(sizeof(Face));
+    dcel->faceArray[0] = *outerFace;
+    return dcel;
 }
