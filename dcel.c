@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
- 
-typedef struct DCEL {
-    struct HalfEdge *edgeArray;
-    struct Vertex   *vertexArray;
-    struct Face     *faceArray;
-}DCEL;
 
 typedef struct Vertex {
     double xCoordinate;
@@ -25,9 +19,18 @@ typedef struct HalfEdge {
 }HalfEdge;
 
 typedef struct Face {
-    HalfEdge *incidentEdge; //pointer to any one half-edge for which f is the incident face
+    HalfEdge incidentEdge; //pointer to any one half-edge for which f is the incident face
     //Any attributes can be added here
 }Face;
+
+typedef struct DCEL {
+    struct HalfEdge *edgeArray[100];
+    struct Vertex  *vertexArray[100];
+    struct Face    *faceArray[100];
+    int numberOfEdges;
+    int numberOfVertices;
+    int numberOfFaces;
+}DCEL;
 
 DCEL *makeDCEL(); //Creates an empty DCEL, it contains no vertices or edges, but contains a single outer(unbounded) face.
 int getNumberOfFaces(DCEL *d); //Returns the number of faces in the DCEL.
@@ -39,39 +42,51 @@ Vertex *makeVertex(DCEL *d, double x, double y); //Creates and returns a new ver
  
 int main( ) {
     
+    DCEL *d = makeDCEL();
+    Vertex *v1 = makeVertex(d, 0,0);
+    Vertex *v2 = makeVertex(d, 1,0);
+    Vertex *v3 = makeVertex(d, 1,1);
+    Vertex *v4 = makeVertex(d, 0,9);
 
    return 0;
 }
 
 DCEL *makeDCEL(){
-    Face *outerFace; DCEL *dcel;
-    dcel->faceArray = malloc(sizeof(Face));
-    dcel->faceArray[0] = *outerFace;
+    DCEL *dcel = malloc(sizeof(DCEL));
+    Face *outerFace = malloc(sizeof(Face));
+    dcel->faceArray[0] = outerFace;
+    dcel->numberOfEdges = 0;
+    dcel->numberOfVertices = 0;
+    dcel->numberOfFaces = 1;
     return dcel;
 }
 int getNumberOfFaces(DCEL *d){
-    return sizeof(d->faceArray) / sizeof(Face);
+    return d->numberOfFaces;
 }
 int getNumberOfEdges(DCEL *d){
-    return sizeof(d->edgeArray) / sizeof(HalfEdge);
+    return d->numberOfEdges;
 }
 int getNumberOfVertices(DCEL *d){
-    return sizeof(d->vertexArray) / sizeof(Vertex);
+    return d->numberOfVertices;
 }
 HalfEdge *nextIncidentEdge(Vertex *v, HalfEdge *e){
+    return NULL;
 }
 
 Vertex *destination(HalfEdge *e){
+    return NULL;
 }
 Vertex *makeVertex(DCEL *d, double x, double y){
-    Vertex *newVertex;
+
+    Vertex *newVertex=malloc(sizeof(Vertex));;
     newVertex->xCoordinate = x;
     newVertex->yCoordinate = y;
     newVertex->incidentEdge = NULL;
-    d->vertexArray = malloc(sizeof(Vertex));
-    d->vertexArray[sizeof(d->vertexArray) / sizeof(Vertex)] = *newVertex;
-    return newVertex;
+    d->vertexArray[d->numberOfVertices] = newVertex;
+    d->numberOfVertices = d->numberOfVertices+1;
+    return NULL;
 }
+
 
 
 
