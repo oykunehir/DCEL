@@ -9,8 +9,8 @@ typedef struct DCEL {
 }DCEL;
 
 typedef struct Vertex {
-    double *xCoordinate;
-    double *yCoordinate;
+    double xCoordinate;
+    double yCoordinate;
     struct HalfEdge *incidentEdge; //pointer to any one incident edge originating from this vertex
     //Any attributes can be added here
 }Vertex;
@@ -30,14 +30,18 @@ typedef struct Face {
 }Face;
 
 DCEL *makeDCEL(); //Creates an empty DCEL, it contains no vertices or edges, but contains a single outer(unbounded) face.
-getNumberOfFaces(DCEL *d); //Returns the number of faces in the DCEL.
-
+int getNumberOfFaces(DCEL *d); //Returns the number of faces in the DCEL.
+int getNumberOfEdges(DCEL *d); //Returns the number of edges in the DCEL.
+int getNumberOfVertices(DCEL *d); //Returns the number of vertices in the DCEL
+HalfEdge *nextIncidentEdge(Vertex *v, HalfEdge *e); //Given an edge e, incident at a vertex v, this function returns the next incident edge in CCW order leaving the vertex v.
+Vertex *destination(HalfEdge *e); //Returns the destination vertex of an edge e
+Vertex *makeVertex(DCEL *d, double x, double y); //Creates and returns a new vertex at the given point location in DCEL d
  
 int main( ) {
     
+
    return 0;
 }
-
 
 DCEL *makeDCEL(){
     Face *outerFace; DCEL *dcel;
@@ -45,7 +49,29 @@ DCEL *makeDCEL(){
     dcel->faceArray[0] = *outerFace;
     return dcel;
 }
-
 int getNumberOfFaces(DCEL *d){
     return sizeof(d->faceArray) / sizeof(Face);
 }
+int getNumberOfEdges(DCEL *d){
+    return sizeof(d->edgeArray) / sizeof(HalfEdge);
+}
+int getNumberOfVertices(DCEL *d){
+    return sizeof(d->vertexArray) / sizeof(Vertex);
+}
+HalfEdge *nextIncidentEdge(Vertex *v, HalfEdge *e){
+}
+
+Vertex *destination(HalfEdge *e){
+}
+Vertex *makeVertex(DCEL *d, double x, double y){
+    Vertex *newVertex;
+    newVertex->xCoordinate = x;
+    newVertex->yCoordinate = y;
+    newVertex->incidentEdge = NULL;
+    d->vertexArray = malloc(sizeof(Vertex));
+    d->vertexArray[sizeof(d->vertexArray) / sizeof(Vertex)] = *newVertex;
+    return newVertex;
+}
+
+
+
