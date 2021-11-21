@@ -5,16 +5,22 @@
 typedef struct Vertex {
     double xCoordinate;
     double yCoordinate;
+    double try;
+    double try2;
     struct HalfEdge *incidentEdge; //pointer to any one incident edge originating from this vertex
     //Any attributes can be added here
 }Vertex;
 
 typedef struct HalfEdge {
+    
+    
     Vertex *originVertex; //half-edge originates from this vertex
     struct HalfEdge *twinEdge; //pointer to its twin
     struct Face *incidentFace; //left face edge is incident on
     struct HalfEdge *nextEdge; //half-edge around the incident (left) face.
     struct HalfEdge *prevEdge; // previous half-edge around the incident (left) face.
+    
+    
     //Any attributes can be added here
 }HalfEdge;
 
